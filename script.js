@@ -1,24 +1,25 @@
-const userScore = 0;
-const computerScore = 0;
+let userScore = 0;
+let computerScore = 0;
 const userScore_span = document.getElementById("user-score");
 const computerScore_span = document.getElementById("computer-score");
 const scoreboard_div = document.querySelector(".score-board");
 const result_p = document.querySelector(".result > p");
-const steen_div = document.getElementById("s");
-const schaar_div = document.getElementById("c");
-const papier_div = document.getElementById("p");
+const steen_div = document.getElementById("steen");
+const schaar_div = document.getElementById("schaar");
+const papier_div = document.getElementById("papier");
 
+// ok comp choice
 function getComputerChoice() {
-  const choices = ["s", "c", "p"];
+  const choices = ["steen", "schaar", "papier"];
   const randomNumber = Math.floor(Math.random() * 3);
   return choices[randomNumber];
 }
 
-function convertToWord(letter) {
+/*function convertToWord(letter) {
   if (letter === "s") return "Steen";
   if (letter === "p") return "Papier";
   if (letter === "c") return "Schaar";
-}
+}*/
 
 function win(userChoice, computerChoice) {
   const smallUserWord = "user".fontsize(3).sup();
@@ -27,10 +28,8 @@ function win(userChoice, computerChoice) {
   userScore++;
   userScore_span.innerHTML = userScore;
   computerScore_span.innerHTML = computerScore;
-  result_p.innerHTML = `${convertToWord(userChoice)}${smallUserWord}
-    wint van ${convertToWord(computerChoice)}$
-    {smallCompWord}
-    . Gewonnen !!!`;
+  result_p.innerHTML =
+    userChoice + " wint van " + computerChoice + ". Gewonnen !!!";
   userChoice_div.classList.add("green-glow");
   setTimeout(function() {
     userChoice_div.classList.remove("green-glow");
@@ -41,13 +40,11 @@ function verliest(userChoice, computerChoice) {
   const smallUserWord = "user".fontsize(3).sup();
   const smallCompWord = "comp".fontsize(3).sup();
   const userChoice_div = document.getElementById(userChoice);
-  compScore++;
+  computerScore++;
   userScore_span.innerHTML = userScore;
   computerScore_span.innerHTML = computerScore;
-  result_p.innerHTML = `${convertToWord(userChoice)}${smallUserWord}
-    verliest van ${convertToWord(computerChoice)}$
-    {smallCompWord}
-    . Loser !!!`;
+  result_p.innerHTML =
+    userChoice + " verliest van " + computerChoice + ". Loser !!!";
   userChoice_div.classList.add("red-glow");
   setTimeout(function() {
     userChoice_div.classList.remove("red-glow");
@@ -58,10 +55,8 @@ function gelijk(userChoice, computerChoice) {
   const smallUserWord = "user".fontsize(3).sup();
   const smallCompWord = "comp".fontsize(3).sup();
   const userChoice_div = document.getElementById(userChoice);
-  result_p.innerHTML = `${convertToWord(userChoice)}${smallUserWord}
-    Gelijkspel ${convertToWord(computerChoice)}
-    {smallCompWord}
-    . Maar toch ben jij de loser !!!`;
+  result_p.innerHTML =
+    userChoice + " en " + computerChoice + ". Maar toch ben jij de loser !!!";
   userChoice_div.classList.add("grey-glow");
   setTimeout(function() {
     userChoice_div.classList.remove("grey-glow");
@@ -71,22 +66,25 @@ function gelijk(userChoice, computerChoice) {
 function game(userChoice) {
   const computerChoice = getComputerChoice();
   switch (userChoice + computerChoice) {
-    case "sc":
-    case "ps":
-    case "cp":
+    case "steenschaar":
+    case "papiersteen":
+    case "schaarpapier":
       win(userChoice, computerChoice);
+      // misschien de log eruit
       console.log("JE HEBT GEWONNEN!");
       break;
-    case "cp":
-    case "ps":
-    case "sc":
+    case "schaarpapier":
+    case "papiersteen":
+    case "steenschaar":
       verliest(userChoice, computerChoice);
+      // misschien de log eruit
       console.log("DE COMPUTER HEEFT GEWONNEN!");
       break;
-    case "ss":
-    case "pp":
-    case "cc":
+    case "steensteen":
+    case "papierpapier":
+    case "schaarschaar":
       gelijk(userChoice, computerChoice);
+      // misschien de log eruit
       console.log("NIEMAND WINT HIER!");
       break;
   }
@@ -94,15 +92,15 @@ function game(userChoice) {
 
 function main() {
   steen_div.addEventListener("click", function() {
-    game("s");
+    game("steen");
   });
 
   schaar_div.addEventListener("click", function() {
-    game("c");
+    game("schaar");
   });
 
   papier_div.addEventListener("click", function() {
-    game("p");
+    game("papier");
   });
 }
 

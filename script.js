@@ -8,18 +8,11 @@ const steen_div = document.getElementById("steen");
 const schaar_div = document.getElementById("schaar");
 const papier_div = document.getElementById("papier");
 
-// ok comp choice
 function getComputerChoice() {
   const choices = ["steen", "schaar", "papier"];
   const randomNumber = Math.floor(Math.random() * 3);
   return choices[randomNumber];
 }
-
-/*function convertToWord(letter) {
-  if (letter === "s") return "Steen";
-  if (letter === "p") return "Papier";
-  if (letter === "c") return "Schaar";
-}*/
 
 function win(userChoice, computerChoice) {
   const smallUserWord = "user".fontsize(3).sup();
